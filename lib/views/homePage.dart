@@ -21,15 +21,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   void getData(){
+    final _employeeProvider =  Provider.of<EmployeeProvider>(context, listen: false);
     WidgetsBinding.instance
         .addPostFrameCallback((_) async {
       var box = Hive.box('employeeDb');
       if(box.containsKey('employees')){
-        print('Contain');
-        Provider.of<EmployeeProvider>(context, listen: false).getEmployeeData();
+        _employeeProvider.getEmployeeData();
       } else {
-        print('Not Contain');
-        Provider.of<EmployeeProvider>(context, listen: false).getAllEmployees();
+        _employeeProvider.getAllEmployees();
       }
     });
 
